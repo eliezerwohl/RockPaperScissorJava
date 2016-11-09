@@ -109,4 +109,35 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/roundCount"
         app:layout_constraintRight_toRightOf="@+id/roundCount" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="47dp"
+        android:layout_height="37dp"
+        android:id="@+id/iconRock"
+        android:textSize="14sp"
+        app:layout_constraintRight_toLeftOf="@+id/iconPaper"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/iconPaper" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="53dp"
+        android:layout_height="37dp"
+        android:id="@+id/iconPaper"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/computerScoreDisplay"
+        app:layout_constraintLeft_toLeftOf="@+id/computerScoreDisplay"
+        app:layout_constraintRight_toRightOf="@+id/computerScoreDisplay" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="62dp"
+        android:layout_height="37dp"
+        android:id="@+id/iconScissor"
+        android:layout_marginStart="72dp"
+        app:layout_constraintLeft_toRightOf="@+id/iconPaper"
+        android:layout_marginLeft="72dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/iconPaper" />
 </android.support.constraint.ConstraintLayout>
