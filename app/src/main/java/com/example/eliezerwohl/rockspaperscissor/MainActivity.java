@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private int roundCount = 0;
     private int userScore = 0;
     private int computerScore = 0;
+    private TextView computerScoreDisplay;
+    private TextView userScoreDisplay;
+    private TextView roundCountDisplay;
 
 
     @Override
@@ -30,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         computerChoice.add("rock");
         computerChoice.add("paper");
         computerChoice.add("scissor");
+        computerScoreDisplay = (TextView) findViewById(R.id.computerScoreDisplay);
+        userScoreDisplay = (TextView) findViewById(R.id.userScoreDisplay);
+        roundCountDisplay = (TextView)findViewById(R.id.roundCountDisplay);
         Button buttonRock = (Button) findViewById(R.id.buttonRock);
         Button buttonPaper = (Button) findViewById(R.id.buttonPaper);
         Button buttonScissor = (Button) findViewById(R.id.buttonScissor);
@@ -51,12 +58,15 @@ public class MainActivity extends AppCompatActivity {
                         || (playerMove.equals("scissor") && computerMove.equals("paper"))) {
                     Log.d("d", "win");
                     userScore++;
+                    userScoreDisplay.setText(Integer.toString(userScore));
                 } else {
                     Log.d("d", "you lose");
                     computerScore++;
+                    computerScoreDisplay.setText(Integer.toString(computerScore));
                 }
                 int currentRound = roundCount -1;
                 Log.d("l", "the round count is : " + currentRound  + " your score is: " +userScore + "the computer score is: " + computerScore);
+                roundCountDisplay.setText(Integer.toString(roundCount));
             }
         };
         buttonRock.setOnClickListener(userSelect);
