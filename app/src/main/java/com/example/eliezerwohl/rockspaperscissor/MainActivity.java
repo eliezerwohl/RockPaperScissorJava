@@ -18,6 +18,9 @@ import static com.example.eliezerwohl.rockspaperscissor.R.id.buttonScissor;
 public class MainActivity extends AppCompatActivity {
     private String userInput;
     private ArrayList<String> computerChoice = new ArrayList<>();
+    private int roundCount = 0;
+    private int userScore = 0;
+    private int computerScore = 0;
 
 
     @Override
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener userSelect = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                roundCount ++;
                 Button value = (Button) view;
                 String playerMove = value.getText().toString();
 //                Log.d("this", value.getText().toString());
@@ -45,11 +49,14 @@ public class MainActivity extends AppCompatActivity {
                 } else if ((playerMove.equals("rock") && computerMove.equals("scissor"))
                         || (playerMove.equals("paper") && computerMove.equals("rock"))
                         || (playerMove.equals("scissor") && computerMove.equals("paper"))) {
-                    Log.d("", "win");
+                    Log.d("d", "win");
+                    userScore++;
                 } else {
-                    Log.d("", "you lose");
+                    Log.d("d", "you lose");
+                    computerScore++;
                 }
-
+                int currentRound = roundCount -1;
+                Log.d("l", "the round count is : " + currentRound  + " your score is: " +userScore + "the computer score is: " + computerScore);
             }
         };
         buttonRock.setOnClickListener(userSelect);
