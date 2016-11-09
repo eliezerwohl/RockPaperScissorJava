@@ -1,11 +1,13 @@
 package com.example.eliezerwohl.rockspaperscissor;
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -31,6 +33,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
+        TextView iconRock = (TextView) findViewById(R.id.iconRock);
+        TextView iconPaper = (TextView) findViewById(R.id.iconPaper);
+        TextView iconScissor = (TextView) findViewById(R.id.iconScissor);
+        iconRock.setTypeface(fontFamily);
+        iconRock.setText("\uf255");
+        iconPaper.setTypeface(fontFamily);
+        iconPaper.setText("\uf256");
+        iconScissor.setTypeface(fontFamily);
+        iconScissor.setText("\uf257");
         computerChoice.add("rock");
         computerChoice.add("paper");
         computerChoice.add("scissor");
