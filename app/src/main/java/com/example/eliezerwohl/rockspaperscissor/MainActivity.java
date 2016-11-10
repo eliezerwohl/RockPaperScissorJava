@@ -1,6 +1,7 @@
 package com.example.eliezerwohl.rockspaperscissor;
 
 import android.graphics.Typeface;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView iconPaper;
     private TextView iconScissor;
     private TextView verdict;
+    private long mLastClickTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +54,13 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener userSelect = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 3000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 AlphaAnimation compyAnimate = new AlphaAnimation(0.2f, 1.0f);
                 compyAnimate.setDuration(500);
-                compyAnimate.setRepeatCount(4);
+                compyAnimate.setRepeatCount(6);
                 roundCount++;
                 Button value = (Button) view;
                 String playerMove = value.getText().toString();
