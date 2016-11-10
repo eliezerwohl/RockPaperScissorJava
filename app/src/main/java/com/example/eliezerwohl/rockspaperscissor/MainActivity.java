@@ -15,18 +15,40 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private String userInput;
     private ArrayList<String> computerChoice = new ArrayList<>();
-    private int roundCount = 0;
+    private int roundCount = 1;
     private int userScore = 0;
     private int computerScore = 0;
     private TextView computerScoreDisplay;
     private TextView userScoreDisplay;
     private TextView roundCountDisplay;
-    private TextView iconRock;
-    private TextView iconPaper;
-    private TextView iconScissor;
-    private TextView verdict;
+    private static String currentVerdict;
     private long mLastClickTime = 0;
-
+    private String VERDICT_DATA = "Verdict data";
+    private String ROUND_DATA = "Round data";
+    private String COMPYSCORE_DATA = "Compyscore data";
+    private String USERSCORE_DATA = "Userscore data";
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (currentVerdict != null) {
+            outState.putString(VERDICT_DATA, currentVerdict);
+        }
+        outState.putInt(COMPYSCORE_DATA, computerScore);
+        outState.putInt(USERSCORE_DATA, userScore);
+        outState.putInt(ROUND_DATA, roundCount);
+        super.onSaveInstanceState(outState);
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        final TextView verdict = (TextView) findViewById(R.id.verdict);
+        verdict.setText(savedInstanceState.getString(VERDICT_DATA));
+        computerScoreDisplay = (TextView) findViewById(R.id.computerScoreDisplay);
+        userScoreDisplay = (TextView) findViewById(R.id.userScoreDisplay);
+        roundCountDisplay = (TextView) findViewById(R.id.roundCountDisplay);
+        computerScoreDisplay.setText(Integer.toString(savedInstanceState.getInt(COMPYSCORE_DATA)));
+        userScoreDisplay.setText(Integer.toString(savedInstanceState.getInt(USERSCORE_DATA)));
+        roundCountDisplay.setText(Integer.toString(savedInstanceState.getInt(ROUND_DATA)));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener userSelect = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 3000){
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 3000) {
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
@@ -75,20 +97,22 @@ public class MainActivity extends AppCompatActivity {
                     iconScissor.startAnimation(compyAnimate);
                 }
                 if (playerMove.equals(computerMove)) {
-                    verdict.setText("A WINNER IS NONE!");
+                    currentVerdict = ("A WINNER IS NONE!");
                 } else if ((playerMove.equals("rock") && computerMove.equals("scissor"))
                         || (playerMove.equals("paper") && computerMove.equals("rock"))
                         || (playerMove.equals("scissor") && computerMove.equals("paper"))) {
-                    verdict.setText("YOU ARE VICTORY!!");
+
+                    currentVerdict = ("YOU ARE VICTORY!!");
                     userScore++;
                     userScoreDisplay.setText(Integer.toString(userScore));
                 } else {
-                    verdict.setText("So defeated...");
+
+                    currentVerdict = ("So defeated...");
                     computerScore++;
                     computerScoreDisplay.setText(Integer.toString(computerScore));
                 }
+                verdict.setText(currentVerdict);
                 int currentRound = roundCount - 1;
-                Log.d("l", "the round count is : " + currentRound + " your score is: " + userScore + "the computer score is: " + computerScore);
                 roundCountDisplay.setText(Integer.toString(roundCount));
             }
         };
